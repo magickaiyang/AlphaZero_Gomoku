@@ -5,6 +5,7 @@
 
 from __future__ import print_function
 import numpy as np
+from numba import njit
 
 
 class Board(object):
@@ -53,6 +54,7 @@ class Board(object):
             return -1
         return move
 
+    @njit
     def current_state(self):
         """return the board state from the perspective of the current player.
         state shape: 4*width*height
@@ -83,6 +85,7 @@ class Board(object):
         )
         self.last_move = move
 
+    @njit
     def has_a_winner(self):
         width = self.width
         height = self.height

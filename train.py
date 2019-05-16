@@ -16,6 +16,7 @@ from mcts_alphaZero import MCTSPlayer
 # from policy_value_net_pytorch import PolicyValueNet  # Pytorch
 from policy_value_net_tensorflow import PolicyValueNet # Tensorflow
 # from policy_value_net_keras import PolicyValueNet # Keras
+from numba import njit
 
 
 class TrainPipeline():
@@ -60,7 +61,8 @@ class TrainPipeline():
                                       c_puct=self.c_puct,
                                       n_playout=self.n_playout,
                                       is_selfplay=1)
-
+    
+    @njit
     def get_equi_data(self, play_data):
         """augment the data set by rotation and flipping
         play_data: [(state, mcts_prob, winner_z), ..., ...]
@@ -94,6 +96,7 @@ class TrainPipeline():
             play_data = self.get_equi_data(play_data)
             self.data_buffer.extend(play_data)
 
+    @njit
     def policy_update(self):
         """update the policy-value net"""
         mini_batch = random.sample(self.data_buffer, self.batch_size)

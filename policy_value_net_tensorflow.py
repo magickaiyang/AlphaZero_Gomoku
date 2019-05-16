@@ -9,7 +9,6 @@ Tested in Tensorflow 1.4 and 1.5
 import numpy as np
 import tensorflow as tf
 
-
 class PolicyValueNet():
     def __init__(self, board_width, board_height, model_file=None):
         self.board_width = board_width
@@ -101,6 +100,7 @@ class PolicyValueNet():
         self.saver = tf.train.Saver()
         if model_file is not None:
             self.restore_model(model_file)
+            print("Previous model loaded")
 
     def policy_value(self, state_batch):
         """
