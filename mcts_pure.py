@@ -8,7 +8,6 @@ A pure implementation of the Monte Carlo Tree Search (MCTS)
 import numpy as np
 import copy
 from operator import itemgetter
-from numba import njit
 
 def rollout_policy_fn(board):
     """a coarse, fast version of policy_fn used in the rollout phase."""
@@ -55,7 +54,6 @@ class TreeNode(object):
         return max(self._children.items(),
                    key=lambda act_node: act_node[1].get_value(c_puct))
 
-    @njit
     def update(self, leaf_value):
         """Update node values from leaf evaluation.
         leaf_value: the value of subtree evaluation from the current player's
@@ -74,7 +72,6 @@ class TreeNode(object):
             self._parent.update_recursive(-leaf_value)
         self.update(leaf_value)
 
-    @njit
     def get_value(self, c_puct):
         """Calculate and return the value for this node.
         It is a combination of leaf evaluations Q, and this node's prior
@@ -158,7 +155,6 @@ class MCTS(object):
         else:
             return 1 if winner == player else -1
 
-    @njit
     def get_move(self, state):
         """Runs all playouts sequentially and returns the most visited action.
         state: the current game state

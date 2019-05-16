@@ -49,7 +49,6 @@ class TreeNode(object):
         return max(self._children.items(),
                    key=lambda act_node: act_node[1].get_value(c_puct))
 
-    @njit
     def update(self, leaf_value):
         """Update node values from leaf evaluation.
         leaf_value: the value of subtree evaluation from the current player's
@@ -68,7 +67,6 @@ class TreeNode(object):
             self._parent.update_recursive(-leaf_value)
         self.update(leaf_value)
 
-    @njit
     def get_value(self, c_puct):
         """Calculate and return the value for this node.
         It is a combination of leaf evaluations Q, and this node's prior
@@ -139,7 +137,6 @@ class MCTS(object):
         # Update value and visit count of nodes in this traversal.
         node.update_recursive(-leaf_value)
 
-    @njit
     def get_move_probs(self, state, temp=1e-3):
         """Run all playouts sequentially and return the available actions and
         their corresponding probabilities.
