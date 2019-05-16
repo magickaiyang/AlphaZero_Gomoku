@@ -40,7 +40,7 @@ class TrainPipeline():
         self.play_batch_size = 1
         self.epochs = 5  # num of train_steps for each update
         self.kl_targ = 0.02
-        self.check_freq = 20 
+        self.check_freq = 100 
         self.game_batch_num = 15000
         self.best_win_ratio = 0.0
         # num of simulations used for the pure mcts, which is used as

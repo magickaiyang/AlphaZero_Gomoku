@@ -8,9 +8,7 @@ network to guide the tree search and evaluate the leaf nodes
 
 import numpy as np
 import copy
-from numba import njit
 
-@njit
 def softmax(x):
     probs = np.exp(x - np.max(x))
     probs /= np.sum(probs)
