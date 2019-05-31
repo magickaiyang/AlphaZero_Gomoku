@@ -86,8 +86,8 @@ class PolicyValueNet():
                 learning_rate=self.learning_rate).minimize(self.loss)
 
         config = tf.ConfigProto()
-        config.intra_op_parallelism_threads = 3
-        config.inter_op_parallelism_threads = 3
+        config.intra_op_parallelism_threads = 2
+        config.inter_op_parallelism_threads = 2
         # Make a session
         self.session = tf.Session(config=config)
 
